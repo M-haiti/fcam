@@ -1,0 +1,17 @@
+{% block content %}
+<h1 class="conteo">{{conteo}}</h1>
+ <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Código</th>               
+            </tr>
+            <tbody>
+                {% for propuesta in propuestas %}
+                <tr>
+                    <td>{{propuesta.codigo_prop}}</td>
+                </tr>
+                {%endfor %}
+            </tbody>
+        </thead>
+    </table>
+{% endblock%}

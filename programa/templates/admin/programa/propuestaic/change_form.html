@@ -1,0 +1,13 @@
+{% extends 'admin/change_form.html' %}
+
+{% load static %}
+
+{% block admin_change_form_document_ready %}
+{{ block.super }}
+{% if 'change' in request.path %}
+<script src="{% static 'programa/propicedit.js' %}"></script>
+{% endif %}
+{% if 'add' in request.path %}
+<script src="{% static 'programa/propiccreate.js' %}"></script>
+{% endif %}
+{% endblock %}

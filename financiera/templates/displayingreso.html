@@ -1,0 +1,133 @@
+{% block content %}
+    <table class="table table-bordered table-hover">
+    <caption>Ingreso</caption>
+            <tr>
+                <th>Ingreso</th>
+            </tr>
+        </thead>
+        <tbody>    
+                <tr>
+                    <td>{{ingreso}}</a></td>
+                </tr>
+        </tbody>
+    </table>
+    
+    <table class="distporprograma" style='width:100%;'>
+    <caption>Distribucion del ingreso por programa</caption>
+       <thead>
+            <tr>
+                <th>+/-</th>
+                <th>Codigo</th>
+                <th>Programa</th>
+                <th>Monto USD</th>
+                <th>Monto EUR</th>
+                <th>Propuesta</th>
+                <th>Estatus</th>
+        </thead>    
+            <tbody>
+                {% for distprograma in distprogramas %}
+                <tr>
+                    <td>+</td>
+                    <td>{{distprograma.id}}</a></td>
+                    <td>{{distprograma.programa}}</td>
+                    <td>{{distprograma.monto }}</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                {%endfor %}
+                {% for desembolsosCop in desembolsosCops %}
+                <tr>
+                    <td>-</td>
+                    <td>{{desembolsosCop.codigo}}</a></td>
+                    <td>{{desembolsosCop.propuesta.programa}}</td>
+                    <td>{{desembolsosCop.monto_total_USD}}</td>
+                    <td>{{desembolsosCop.monto_total_EUR }}</td>
+                    <td>{{desembolsosCop.propuesta}}</td>
+                    <td>{{desembolsosCop.estatus}}</td>
+                </tr>
+                {%endfor %}
+            </tbody>
+        </thead>
+    </table>   
+    <table class="distporic" style='width:100%;margin-top:3%;'>
+    <caption>Distribucion del ingreso por IC</caption>
+        <thead>
+            <tr>        
+                <th>+/-</th>
+                <th>Codigo</th>
+                <th>IC</th>
+                <th>Monto USD</th>
+                <th>Monto EUR</th>
+                <th>IC</th>
+                <th>Estatus</th>
+            </tr>
+        </thead>    
+            <tbody>
+                {% for distic in distics %}
+                <tr>
+                    <td>+</td>
+                    <td>{{distic.id}}</a></td>
+                    <td>{{distic.ic}}</td>
+                    <td>{{distic.monto }}</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                {%endfor %}
+                {% for desembolsosIcj in desembolsosIcjs %}
+                <tr>
+                    <td>-</td>
+                    <td>{{desembolsosIcj.codigo}}</a></td>
+                    <td>{{desembolsosIcj.iniciativa_conjunta.tipo_ic}}</td>
+                    <td>{{desembolsosIcj.monto_total_USD}}</td>
+                    <td>{{desembolsosIcj.monto_total_EUR }}</td>
+                    <td>{{desembolsosIcj.iniciativa_conjunta}}</td>
+                    <td>{{desembolsosIcj.estatus}}</td>
+                </tr>
+                {%endfor %}
+            </tbody>
+        
+    </table>
+        
+    <table class="distporae" style='width:100%;margin-top:3%;'>
+    <caption>Distribucion del ingreso para Apoyo Estrategico</caption>
+        <thead>
+            <tr>              
+                <th>+/-</th>
+                <th>Codigo</th>
+                <th>AE</th>
+                <th>Monto USD</th>
+                <th>Monto EUR</th>
+                <th>Propuesta</th>
+                <th>Estatus</th>
+            </tr>
+        </thead>    
+            <tbody>
+                {% for distae in distaes %}
+                <tr>
+                    <td>+</td>
+                    <td>{{distae.id}}</a></td>
+                    <td>{{distae.programa}}</td>
+                    <td>{{distae.monto }}</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                {%endfor %}
+                {% for desembolsosApe in desembolsosApes %}
+                <tr>
+                    <td>-</td>
+                    <td>{{desembolsosApe.codigo}}</a></td>
+                    <td>APE</td>
+                    <td>{{desembolsosApe.monto_total_USD}}</td>
+                    <td>{{desembolsosApe.monto_total_EUR }}</td>
+                     <td>APE</td>
+                    <td>{{desembolsosApe.estatus}}</td>
+                </tr>
+                {%endfor %}
+            
+            </tbody>
+        
+    </table>
+{% endblock  %}

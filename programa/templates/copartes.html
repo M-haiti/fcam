@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Supervisora</th>
+                <th>Responsable</th>
+                <th>Ver</th>
+                <th>Editar</th>
+            </tr>
+            <tbody>
+                {% for coparte in copartes %}
+                <tr>
+                    <td>{{coparte.nombre_org}}</a></td>
+                    <td>{{coparte.codigo_org}}</td>
+                    <td>{{coparte.supervisora.username}}</td>
+                    <td>{{coparte.responsable.username}}</td>
+                    <td><a href="/coparte/{{coparte.id}}">Ver</a></td>
+                    <td><a href="/admin/programa/coparte/{{coparte.id}}/change/">Editar</a></td>
+                </tr>
+                {%endfor %}
+            </tbody>
+        </thead>
+    </table>
+{% endblock  %}

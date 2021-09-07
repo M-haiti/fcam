@@ -1,0 +1,25 @@
+{% block content %}
+    <table class="table table-bordered table-hover">
+    <caption>Desembolsos asociados a la propuesta seleccionada</caption>
+        <thead>
+            <tr>
+                <th>Desembolso</th>
+                <th>Apoyo Estrategico</th>
+                <th>Estatus</th>
+                <th>Monto USD</th>
+                <th>Monto EUR</th>
+            </tr>
+            <tbody>
+                {% for desembolso in desembolsos %}
+                <tr>
+                    <td>{{desembolso.codigo}}</a></td>
+                    <td>{{desembolso.iniciativa_conjunta}}</td>
+                    <td>{{desembolso.estatus}}</td>
+                    <td>{{desembolso.monto_total_USD}}</td>
+                    <td>{{desembolso.monto_total_EUR }}</td>
+                </tr>
+                {%endfor %}
+            </tbody>
+        </thead>
+    </table>
+{% endblock  %}
