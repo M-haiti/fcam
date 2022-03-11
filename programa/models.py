@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.conf import settings
 
 #Signals & send mail imports
 from django.core.mail import send_mail
@@ -12,7 +13,7 @@ from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 
-User = get_user_model()
+#User = get_user_model()
 
 #file upload extension validators
 def validate_file_extension(value):
@@ -75,7 +76,7 @@ class BaseOrg(models.Model):
     codigo_org = models.CharField('Código de organización', max_length=25, unique=True)
     nombre_org = models.CharField('Nombre de organización', max_length=255, null=True, blank=True)
     estatus_org = models.CharField('Estatus', max_length=3, choices=ESTATUS, default='ACT')
-    supervisora = models.ForeignKey(User, models.SET_NULL, blank=True, null=True)
+    supervisora = models.ForeignKey(settings.AUTH_USER_MODEL, models.SET_NULL, blank=True, null=True)
     sello_fecha_creacion = models.DateTimeField('Sello fecha de creación', auto_now_add=True, null=True)
     sello_fecha_actualizacion = models.DateTimeField('Sello fecha de actualización', auto_now=True, null=True)
     fecha_completado = models.DateField('Fecha inicial en que se completó la ficha', null=True, blank=True)
@@ -103,7 +104,7 @@ class BaseOrgExt(models.Model):
        abstract=True
 
 class Coparte(BaseOrg, BaseOrgExt):
-    responsable = models.ForeignKey(User, models.SET_NULL, blank=True, null=True, related_name='reponsable')
+    responsable = models.ForeignKey(settings.AUTH_USER_MODEL, models.SET_NULL, blank=True, null=True, related_name='reponsable')
     #Generic relation to reverse relate contactos with foreign
     contacto = GenericRelation('Contacto' ,content_type_field='content_type', object_id_field='object_id', related_query_name='copartecontacto', blank=True)
 
@@ -117,8 +118,8 @@ class BaseProp(models.Model):
          ('VCM','Ver Comentarios'),
     )
     codigo_prop = models.CharField('Código', max_length=25, null=True)
-    responsable = models.ForeignKey(User, models.SET_NULL, blank=True, null=True, related_name='%(class)s_reponsable_propu')
-    supervisora = models.ForeignKey(User, models.SET_NULL, blank=True, null=True, related_name='%(class)s_supervisora_propu')
+    responsable = models.ForeignKey(settings.AUTH_USER_MODEL, models.SET_NULL, blank=True, null=True, related_name='%(class)s_reponsable_propu')
+    supervisora = models.ForeignKey(settings.AUTH_USER_MODEL, models.SET_NULL, blank=True, null=True, related_name='%(class)s_supervisora_propu')
     estatus_prop = models.CharField('Estatus', max_length=3, choices=ESTATUSPROP, default='ACT')
     sello_fecha_creacion = models.DateTimeField('Sello fecha de creación', auto_now_add=True, null=True)
     sello_fecha_actualizacion = models.DateTimeField('Sello fecha de actualización', auto_now=True, null=True)
@@ -288,7 +289,7 @@ class Contacto(models.Model):
     correo = models.EmailField(blank=True)
     telefono = models.CharField(max_length=60, blank=True)
     cargo = models.CharField(max_length=255, blank=True)
-    created_by = models.ForeignKey(User, models.SET_NULL, blank=True, null=True)
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, models.SET_NULL, blank=True, null=True)
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True)
     object_id = models.PositiveIntegerField(default=1)
     vinculado_a = GenericForeignKey()
@@ -311,7 +312,7 @@ class Grupoactor(models.Model):
            
 
 class Comment(models.Model):
-    usuario = models.ForeignKey(User, models.SET_NULL, blank=True, null=True)
+    usuario = models.ForeignKey(settings.AUTH_USER_MODEL , models.SET_NULL, blank=True, null=True)
     cuerpo= models.TextField('Comentario', null=True, blank=True)
     fecha = models.DateTimeField(auto_now_add=True)
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True)

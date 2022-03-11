@@ -8,8 +8,8 @@ from . import models
 from django.contrib.contenttypes.admin import GenericTabularInline, GenericStackedInline
 from django import forms
 
-
 # Register your models here.
+"""
 class ContactoInline(GenericTabularInline):
     model = models.Contacto
     extra = 0
@@ -68,3 +68,4 @@ class DesembolsoAdmin(admin.ModelAdmin):
     form = DesembolsoAdminForm
     list_display = ['codigo']
     ordering = ['codigo']
+"""
